@@ -2,7 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 //Actions
-import { registerCep } from '../actions';
+import {
+    registerCep,
+    removeCep
+} from '../actions';
 
 //Services
 import { cepConverter } from '../services';
@@ -19,13 +22,25 @@ const CepBlock: React.FC<Props> = (props: Props) => {
 
         const targetCepBlock = document.getElementById(`inputBlock${props.cepBlockID}`) as HTMLDivElement;
 
-        Object.values(targetCepBlock.childNodes).forEach((element, index) => {
+        Object.values(targetCepBlock.childNodes).forEach((element): void => {
             if(element.nodeName === 'INPUT'){   
                 let inputValue: string = (element as HTMLInputElement).value;
 
                 if(inputValue.length === 10){
-                    dispatch(registerCep(inputValue.replace(/[^0-9]/g,""), index));
+                    dispatch(registerCep(inputValue.replace(/[^0-9]/g,""), props.cepBlockID));
                 }
+            };
+        });
+    };
+
+    const removeCepBlock = (): void => {
+        const targetCepBlock = document.getElementById(`inputBlock${props.cepBlockID}`) as HTMLDivElement;
+
+        Object.values(targetCepBlock.childNodes).forEach((element): void => {
+            if(element.nodeName === 'INPUT'){   
+                (element as HTMLInputElement).value = '';
+
+                dispatch(removeCep(props.cepBlockID));
             };
         });
     };
@@ -52,6 +67,12 @@ const CepBlock: React.FC<Props> = (props: Props) => {
                 onClick={registerCepBlock}
             >
                 Registrar CEP
+            </button>
+            <button
+                className="input__button"
+                onClick={removeCepBlock}
+            >
+                Remover CEP
             </button>
         </React.Fragment>
     );

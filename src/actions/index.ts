@@ -7,3 +7,12 @@ export const registerCep = (cepValue: string, cepBlockId: number) => {
         }
     };
 };
+
+export const removeCep = (cepBlockId: number) => {
+    return {
+        type: 'REMOVE_CEP',
+        cep: {
+            cepBlockId: cepBlockId
+        }
+    };
+};

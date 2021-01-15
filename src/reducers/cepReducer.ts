@@ -21,12 +21,12 @@ const findCep = (targetCepBlock: any, currentCepBlock: InsertCepObject): boolean
     if(targetCepBlock){
         targetCepBlock.forEach(cepBlock => {
             Object.entries(cepBlock).forEach((targetCepBlockValue, targetCepBlockIndex) => {
-                if(currentCepBlock[targetCepBlockValue[0]] === targetCepBlockValue[1]){
+                if(targetCepBlockValue[0] !== 'cepValue' && currentCepBlock[targetCepBlockValue[0]] === targetCepBlockValue[1]){
                     searchResult = cepBlock;
-                }
+                };
             });
         });
-    }
+    };
 
     return searchResult;
 };
@@ -40,7 +40,7 @@ export const cepReducer = (state: any[] = [], action: Cep) => {
             if(!findCep(nextState, insertAction)){
                 nextState.push(insertAction);
             }else{
-                nextState[nextState.lastIndexOf(findCep(nextState, insertAction))] = insertAction;
+                nextState[nextState.indexOf(findCep(nextState, insertAction))] = insertAction;
             }
 
             return nextState;
@@ -48,8 +48,6 @@ export const cepReducer = (state: any[] = [], action: Cep) => {
         case 'REMOVE_CEP':
             let newState = state;
             const removeAction = action.cep as RemoveCepObject;
-            
-            //As of it right now the function returns a list but it overrides
 
             newState = removeFromArray(newState, removeAction.cepBlockId);
 

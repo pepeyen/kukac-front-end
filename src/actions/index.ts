@@ -16,3 +16,15 @@ export const removeCep = (cepBlockId: number) => {
         }
     };
 };
+
+export const increaseCepCounter = () => {
+    return {
+        type: 'INCREASE_CEP_COUNTER'
+    };
+};
+
+export const decreaseCepCounter = () => {
+    return {
+        type: 'DECREASE_CEP_COUNTER'
+    };
+};

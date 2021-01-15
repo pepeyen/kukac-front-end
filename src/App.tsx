@@ -1,22 +1,58 @@
 import React from 'react';
+import {
+    Route,
+    Switch,
+    Redirect
+} from 'react-router-dom';
 
 //Components
-import { CepBlock } from './components';
+import { Navbar } from './components';
 
-const App: React.FC = () => {
-	const cepBlocksCount = 5;
+//Views
+import {
+	FirstQuestion,
+	SecondQuestion,
+	ThirdQuestion,
+	FourthQuestion,
+	Home
+} from './views';
+
+const App: React.FC = () => {	
 	return(
 		<React.Fragment>
-			{
-				[...Array(cepBlocksCount)].map((value, index: number) => {
-					return(
-						<CepBlock
-							key={index}
-							cepBlockID={index}
-						/>
-					);
-				})
-			}
+			<header>
+				<Navbar />
+            </header>
+			<main>
+				<Switch>
+					<Route
+                        exact path="/"
+                        component={() => {return <Redirect to="/questoes" />;}}
+                    />
+					<Route
+						exact path='/questoes'
+						component={Home}
+					/>
+					<Route
+						exact path='/questoes/primeira'
+						component={FirstQuestion}
+					/>
+					<Route
+						exact path='/questoes/segunda'
+						component={SecondQuestion}
+					/>
+					<Route
+						exact path='/questoes/tereceira'
+						component={ThirdQuestion}
+					/>
+					<Route
+						exact path='/questoes/quarta'
+						component={FourthQuestion}
+					/>
+				</Switch>
+			</main>
+			<footer>
+			</footer>
 		</React.Fragment>
 	);
 }

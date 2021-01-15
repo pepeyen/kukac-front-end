@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { createStore , compose } from 'redux'
+import { HashRouter } from 'react-router-dom';
+import { 
+	createStore,
+	compose
+} from 'redux'
 
 //Reducers
 import {allReducers} from './reducers';

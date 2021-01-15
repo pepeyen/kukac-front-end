@@ -1,23 +1,60 @@
 import React from 'react';
+import {
+    Route,
+    Switch,
+    Redirect
+} from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//Components
+import { Navbar } from './components';
+
+//Views
+import {
+	FirstQuestion,
+	SecondQuestion,
+	ThirdQuestion,
+	FourthQuestion,
+	Home
+} from './views';
+
+const App: React.FC = () => {	
+	return(
+		<React.Fragment>
+			<header>
+				<Navbar />
+            </header>
+			<main>
+				<Switch>
+					<Route
+                        exact path="/"
+                        component={() => {return <Redirect to="/questoes" />;}}
+                    />
+					<Route
+						exact path='/questoes'
+						component={Home}
+					/>
+					<Route
+						exact path='/questoes/primeira'
+						component={FirstQuestion}
+					/>
+					<Route
+						exact path='/questoes/segunda'
+						component={SecondQuestion}
+					/>
+					<Route
+						exact path='/questoes/tereceira'
+						component={ThirdQuestion}
+					/>
+					<Route
+						exact path='/questoes/quarta'
+						component={FourthQuestion}
+					/>
+				</Switch>
+			</main>
+			<footer>
+			</footer>
+		</React.Fragment>
+	);
 }
 
 export default App;

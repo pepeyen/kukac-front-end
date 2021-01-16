@@ -1,0 +1,33 @@
+.--left-aligned-group{
+    margin: 0 3vh 0 auto;
+}
+.--right-aligned-group{
+    margin: 0 auto 0 3vh;
+}
+.--text-logo{
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+
+    &:hover{
+        color: #fbf27c;
+    }
+}
+.--active-logo{
+    -webkit-transition: border-color .2s ease-in-out;
+    -moz-transition: border-color .2s ease-in-out;
+    -ms-transition: border-color .2s ease-in-out;
+    -o-transition: border-color .2s ease-in-out;
+    transition: border-color .2s ease-in-out;
+
+    color: #fbf27c;
+    border-color: #fbf27c;
+}
+.--active-redirector{
+    font-family: 'WorkSans-SemiBold';
+    background-color: #fbf27c;
+    border-color: #fbf27c;
+    color: #305c5c;
+}

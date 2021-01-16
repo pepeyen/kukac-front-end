@@ -42,7 +42,7 @@ const App: React.FC = () => {
 						component={SecondQuestion}
 					/>
 					<Route
-						exact path='/questoes/tereceira'
+						exact path='/questoes/terceira'
 						component={ThirdQuestion}
 					/>
 					<Route

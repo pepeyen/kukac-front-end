@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+    useState,
+    useEffect
+} from 'react';
 import { useLocation } from 'react-router-dom';
 
 //Components
@@ -8,11 +11,45 @@ import {
     NavbarRedirector
 } from './index';
 
+//Services
+import { renderNavbarHamburguer } from '../services';
+
+interface IWindowSizeState {
+    width: number,
+    height: number
+};
+
 const Navbar: React.FC = () => {
+    const maxNavbarThreshold = 906;
     const location  = useLocation();
+    const [windowSize, setWindowSize] = useState<IWindowSizeState>();
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        };
+
+        window.addEventListener("resize", handleResize);
+    
+        handleResize();
+    
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    if(windowSize?.width && windowSize.width <= maxNavbarThreshold){
+        renderNavbarHamburguer(true);
+    }else{
+        renderNavbarHamburguer(false);
+    }
 
     return(
-        <nav className="navbar">
+        <nav
+            id="navbar"
+            className="navbar"
+        >
             <NavbarLogo
                 redirectTo="/questoes"
                 logoType="text"

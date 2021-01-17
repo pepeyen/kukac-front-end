@@ -60,7 +60,7 @@ const Home: React.FC = () => {
                 key={index}
                 className="page__question --thin-borders"
             >
-               <h3 className="page__question-title --main-title">Questão {question.questionId}</h3>
+               <h3 className="page__question-title --main-title">{question.questionId}</h3>
                {question.questionPrelude ? <span className="page__question-statement --main-statement">{question.questionPrelude}</span> : null}
                {multiParagraphStatement.map((paragraph, index) => <p className="page__question-statement --main-statement" key={index}>{paragraph}</p>)}
                {question.questionSteps ? renderQuestionSteps(question.questionSteps) : null}

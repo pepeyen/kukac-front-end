@@ -8,7 +8,10 @@ interface IProps {
 
 const NavbarGroup: React.FC<IProps> = (props: IProps) => {
     return(
-        <div className={`navbar__group --${props.horizontalAlignment}-aligned-group`}>
+        <div
+            id="navbarGroup"
+            className={`navbar__group --${props.horizontalAlignment}-aligned-group`}
+        >
             {props.children}
         </div>
     );

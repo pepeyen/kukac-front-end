@@ -71,7 +71,7 @@ const CepBlock: React.FC<Props> = (props: Props) => {
             <button
                 className="input__button"
                 onClick={registerCepBlock}
-                disabled = {props.isRegisterDisabled}>
+            disabled = {props.isRegisterDisabled}>
                 Registrar CEP
             </button>
             <button

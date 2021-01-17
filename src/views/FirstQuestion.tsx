@@ -1,9 +1,12 @@
 import React from 'react';
 
+//Components
+import {Page} from '../components';
+
 const FirstQuestion: React.FC = () => {
     return(
-        <article>
-        </article>
+        <Page title="Resolução">
+        </Page>
     );
 };
 

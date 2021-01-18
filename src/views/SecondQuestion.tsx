@@ -121,7 +121,7 @@ const SecondQuestion: React.FC = () => {
                     </div>
                 </div>
                 :
-                <h3>{questionFeedback}</h3>
+                <h3 className="page__feedback">{questionFeedback}</h3>
             }
         </Page>
     );

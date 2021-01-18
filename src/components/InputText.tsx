@@ -20,6 +20,7 @@ const InputText: React.FC<IProps> = (props: IProps) => {
             className="input-block__text"
             id={props.inputTextId ? props.inputTextId : undefined}
         >
+            <label>{props.labelText}</label>
             {props.inputType === 'number' ?
                 <input
                     type={props.inputType}
@@ -38,7 +39,6 @@ const InputText: React.FC<IProps> = (props: IProps) => {
                     maxLength={props.textMaxLength ? props.textMaxLength : undefined}
                 disabled={props.isDisabled ? true : undefined}/>
             }
-            <label>{props.labelText}</label>
         </div>
     );
 };

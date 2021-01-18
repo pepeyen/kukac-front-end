@@ -34,7 +34,7 @@ const findCep = (targetCepBlock: any, currentCepBlock: InsertCepObject): boolean
 export const cepReducer = (state: any[] = [], action: Cep): any[] => {
     switch(action.type){
         case 'REGISTER_CEP':
-            const nextState = state;
+            let nextState = state;
             const insertAction = action.cep as InsertCepObject;
 
             if(!findCep(nextState, insertAction)){
@@ -43,7 +43,7 @@ export const cepReducer = (state: any[] = [], action: Cep): any[] => {
                 nextState[nextState.indexOf(findCep(nextState, insertAction))] = insertAction;
             }
 
-            return nextState;
+            return nextState = [...nextState];
 
         case 'REMOVE_CEP':
             let newState = state;
@@ -51,7 +51,7 @@ export const cepReducer = (state: any[] = [], action: Cep): any[] => {
 
             newState = removeFromArray(newState, removeAction.cepBlockId);
 
-            return newState;
+            return newState = [...newState];
             
         default:
             return state;

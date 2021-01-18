@@ -10,13 +10,28 @@ import {
 //Componets
 import { InputSubmit } from '../components';
 
+interface ICepInfo{
+    erro?: boolean,
+    cep?: string,
+    logradouro?: string,
+    complemento?: string,
+    bairro?: string,
+    localidade?: string,
+    uf?: string,
+    ibge?: string,
+    gia?: string,
+    ddd?: string,
+    siafi?: string
+};
+
 interface ICepResult{
     cepBlockId: number,
-    cepValue: string
+    cepInfo: ICepInfo
 };
 
 interface IProps{
-    cepResultList: ICepResult[]
+    cepResultList: ICepResult[],
+    errorMessage?: string
 };
 
 const CepResultArea: React.FC<IProps> = (props: IProps) => {
@@ -26,18 +41,23 @@ const CepResultArea: React.FC<IProps> = (props: IProps) => {
         dispatch(removeCep(cepCounter));
 		dispatch(decreaseCepCounter());
     };
-
     
     if(props.cepResultList.length > 0){
         return(
             <ul>
-                {props.cepResultList.map((cepResult, index) => {
+                {props.cepResultList.map(cepResult => {
                     return(
-                        <li key={index}>
+                        <li key={cepResult.cepBlockId}>
                             <span>
-                                ID {cepResult.cepBlockId}: {cepResult.cepValue}
+                                {
+                                    Object.entries(cepResult.cepInfo).map(([index, value], key) => {
+                                        return(
+                                            <p key={key}>{index.toUpperCase()}: {value}</p>
+                                        );
+                                    })
+                                }
                                 <InputSubmit
-                                    onClick={(() => removeCepBlock(index))}
+                                    onClick={(() => removeCepBlock(cepResult.cepBlockId))}
                                     buttonText="Remover CEP"
                                 />
                             </span>
@@ -47,7 +67,13 @@ const CepResultArea: React.FC<IProps> = (props: IProps) => {
             </ul>
         );
     }else{
-        return null;
+        if(props.errorMessage !== ''){
+            return(
+                <h3 className="page__feedback">{props.errorMessage}</h3>
+            );
+        }else{
+            return null;
+        }
     } 
 };
 

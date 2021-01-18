@@ -22,15 +22,32 @@ import {
 } from '../components';
 
 //Services
-import { cepConverter } from '../services';
+import {
+	cepConverter,
+	fetchCep
+} from '../services';
+
+interface ICepInfo{
+    erro?: boolean,
+    cep?: string,
+    logradouro?: string,
+    complemento?: string,
+    bairro?: string,
+    localidade?: string,
+    uf?: string,
+    ibge?: string,
+    gia?: string,
+    ddd?: string,
+    siafi?: string
+};
 
 const FourthQuestion: React.FC = () => {
-	const dispatch = useDispatch();
-	const [cepCounter, setCepCounter] = useState(0);
-	const cepResultList = (state: any) => state.cepList;
-	const cepResults = useSelector(cepResultList);
-	const maxCepCounter = 4;
-	console.log(cepResults)
+	const dispatch = useDispatch(),
+		  cepResults = useSelector((state: any) => state.cepList),
+		  cepCounter = useSelector((state: any) => state.cepCounter),
+		  [errorMessage, setErrorMessage] = useState(''),
+		  maxCepCounter = 4;
+
     const registerCepBlock = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>): void => {
 		event.preventDefault();
 		
@@ -41,9 +58,15 @@ const FourthQuestion: React.FC = () => {
                 let inputValue: string = (element as HTMLInputElement).value;
 				
                 if(inputValue.length === 10){
-                    dispatch(registerCep(inputValue.replace(/[^0-9]/g,""), cepCounter));
-					dispatch(increaseCepCounter());
-					setCepCounter(cepCounter + 1);
+					fetchCep<ICepInfo>(inputValue.replace(/[^0-9]/g,""), 'json')
+					.then(data => {
+						if(data.erro){
+							setErrorMessage('CEP inválido (＃＞＜)');
+						}else{
+							dispatch(registerCep(data, cepCounter));
+							dispatch(increaseCepCounter());
+						}
+					})
                 }
             };
         });
@@ -52,7 +75,7 @@ const FourthQuestion: React.FC = () => {
     const liveFormatCepBlock = (event: React.KeyboardEvent<HTMLInputElement>): void => {
         event.currentTarget.value = cepConverter(event.currentTarget.value);
 	};
-
+	
 	return(
 		<Page title="Resolução">
 			<InputBlock>
@@ -72,7 +95,10 @@ const FourthQuestion: React.FC = () => {
 					isDisabled={cepCounter > maxCepCounter ? true : false}/>
 				</InputSubmitArea>
 			</InputBlock>
-			<CepResultArea cepResultList={cepResults}/>
+			<CepResultArea
+				cepResultList={cepResults}
+				errorMessage={errorMessage}
+			/>
 		</Page>
 	);
 };

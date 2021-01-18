@@ -62,6 +62,9 @@
         }
     }
 }
+.--rounded-borders{
+    border-radius: .4rem;
+}
 @media only screen and (min-width: 801px){
     .--left-aligned-group{
         margin: 0 2vh 0 auto;
@@ -75,5 +78,8 @@
     }
     .--main-statement{
         margin: 3vh 2vh 0 2vh;
+    }
+    .--rounded-borders{
+        border-radius: 1.3vh;
     }
 }

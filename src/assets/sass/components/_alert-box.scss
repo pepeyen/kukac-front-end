@@ -1,0 +1,29 @@
+.alert-box{
+    width: 100%;
+    position: absolute;
+    flex-direction: row;
+    justify-content: center;
+    opacity: 0;
+    top: 6rem;
+
+    &__text{
+        font-family: 'WorkSans-SemiBold';
+        color: #fbf27c;
+        text-align: center;
+        background-color: #403f3f;
+        margin: 0 auto 0 auto;
+        min-width: 14rem;
+        padding: 1rem 0;
+    }
+}
+
+@media only screen and (min-width: 801px){
+    .alert-box{
+        top: 9vh;
+    
+        &__text{
+            min-width: 30vh;
+            padding: 2vh 0;
+        }
+    }
+}

@@ -273,3 +273,15 @@ export const testPossibleValues = (possibleValues: number[] | string[], target: 
 
     return 0;
 };
+
+export const fetchCep = <T>(cepValue: string, dataType: string): Promise<T> => {
+    return fetch(`https://viacep.com.br/ws/${cepValue}/${dataType}`, {
+        method: 'GET'
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error(response.statusText);
+        }
+        return response.json().then(data => data as T);
+    }) ;
+};

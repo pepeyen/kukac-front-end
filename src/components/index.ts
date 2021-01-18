@@ -1,3 +1,5 @@
+export {default as Bubble} from './Bubble';
+export {default as BubbleList} from './BubbleList';
 export {default as CepResultArea} from './CepResultArea';
 export {default as CodeBlock} from './CodeBlock';
 export {default as InputBlock} from './InputBlock';

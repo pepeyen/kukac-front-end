@@ -285,3 +285,56 @@ export const fetchCep = <T>(cepValue: string, dataType: string): Promise<T> => {
         return response.json().then(data => data as T);
     }) ;
 };
+
+export const fade = (element: HTMLElement) => {
+    let opacity = 1;
+
+    const timer = setInterval(() => {
+        if(opacity <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        };
+
+        element.style.opacity = opacity.toString();
+        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+        opacity -= opacity * 0.1;
+    }, 50);
+};
+
+export const unfade = (element: HTMLElement) => {
+    let opacity = 0.1;
+
+    element.style.display = 'flex';
+
+    const timer = setInterval(() => {
+        if(opacity >= 1){
+            clearInterval(timer);
+        };
+
+        element.style.opacity = opacity.toString();
+        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+        opacity += opacity * 0.1;
+    }, 10);
+};
+
+export const renderAlertBox = (alertText: string):void => {
+    const alertBoxElement: HTMLDivElement = document.createElement('div');
+    const alertBoxTextElement: HTMLSpanElement = document.createElement('span');
+
+    alertBoxElement.id = "alertBox";
+    alertBoxElement.classList.add("alert-box");
+
+    alertBoxTextElement.textContent = alertText;
+    alertBoxTextElement.classList.add("alert-box__text");
+    alertBoxTextElement.classList.add("--rounded-borders");
+
+    alertBoxElement.appendChild(alertBoxTextElement);
+
+    document.body.appendChild(alertBoxElement);
+
+    unfade(alertBoxElement);
+
+    setTimeout(() => fade(alertBoxElement), 1200);
+
+    setTimeout(() => document.body.removeChild(alertBoxElement), 3000);
+};

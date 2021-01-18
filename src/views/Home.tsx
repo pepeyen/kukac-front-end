@@ -5,7 +5,7 @@ import { Page } from '../components';
 
 //Mock up data
 import {
-    QuestionStepIssue,
+    IQuestionStepIssue,
     IQuestionStep,
     IQuestion,
     questions
@@ -13,7 +13,7 @@ import {
 
 
 const Home: React.FC = () => {
-    const renderQuestionStepIssue = (questionStepIssue: QuestionStepIssue, index: number) => {
+    const renderQuestionStepIssue = (questionStepIssue: IQuestionStepIssue, index: number) => {
         return(
             <li
                 key={index}
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
         );
     };
 
-    const renderQuestionStepIssues = (questionStepIssues: QuestionStepIssue[]) => {
+    const renderQuestionStepIssues = (questionStepIssues: IQuestionStepIssue[]) => {
         return(
             <ul className="page__questions-issues">
                 {questionStepIssues.map((questionStepIssue, index) => renderQuestionStepIssue(questionStepIssue, index))}

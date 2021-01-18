@@ -1,4 +1,4 @@
-export interface QuestionStepIssue {
+export interface IQuestionStepIssue {
     QuestionStepIssueId?: string,
     QuestionStepIssueStatement: string
 };
@@ -6,7 +6,7 @@ export interface QuestionStepIssue {
 export interface IQuestionStep {
     questionStepId: string,
     questionStepStatement: string,
-    questionStepIssueList: QuestionStepIssue[]
+    questionStepIssueList: IQuestionStepIssue[]
 };
 
 export interface IQuestion {
@@ -27,6 +27,7 @@ export const questions: IQuestion[] = [
     },
     {
         questionId: 3,
+        questionPrelude: "Deve ser solicitado ao usuário que preencha as informações sobre o seu veículo, os dados devem sersalvos em um arquivo JSON (para não precisar trabalhar com banco de dados, até porque já vai serbem próximo de um banco NoSQL);",
         questionStatement: "Precisamos controlar melhor os dados de alguns veículos que ficam na nossa garagem e para isso precisamos que seja feito o seguinte:",
         questionSteps: [
             {
@@ -72,7 +73,6 @@ export const questions: IQuestion[] = [
     },
     {
         questionId: 4,
-        questionPrelude: "Deve ser solicitado ao usuário que preencha as informações sobre o seu veículo, os dados devem sersalvos em um arquivo JSON (para não precisar trabalhar com banco de dados, até porque já vai serbem próximo de um banco NoSQL);",
         questionStatement: "Deve ser informado pelo usuário 5 CEP’s, a aplicação deve consumir a api VIACep(https://viacep.com.br/) e obter dados sobre esses CEP’s.. Os CEP’s informados pelo usuário devem ser inicialmente armazenados em um array, e oconsumo da API deve ser de forma síncrona (aguardar a resposta do primeiro para iniciar arequisição do segundo e assim por diante).Os dados após o processamento devem ser exibidos na tela."
     },
 ];

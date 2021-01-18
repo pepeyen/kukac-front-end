@@ -12,7 +12,9 @@ export const cepConverter = (cep: string): string => {
     return cep;
 };
 
-export const removeFromArray = (targetArray: any[], targetValue: any) => {
+export const removeFromArray = (targetList: any[], targetValue: any) => {
+    let targetArray = targetList;
+    
     for(let i = 0; i < targetArray.length; i++){   
         if(targetArray[i] === targetValue) {
             targetArray.splice(i, 1); 
@@ -120,4 +122,154 @@ export const renderNavbarHamburguer = (isMobile: boolean):void => {
             }
         }
     }
+};
+
+export const toCamelCase = (str: string): string => {
+    const map = {
+        'a' : 'á|à|ã|â|À|Á|Ã|Â',
+        'e' : 'é|è|ê|É|È|Ê',
+        'i' : 'í|ì|î|Í|Ì|Î',
+        'o' : 'ó|ò|ô|õ|Ó|Ò|Ô|Õ',
+        'u' : 'ú|ù|û|ü|Ú|Ù|Û|Ü',
+        'c' : 'ç|Ç',
+        'n' : 'ñ|Ñ'
+    };
+    
+    for(let pattern in map){
+        str = str.replace(new RegExp(map[pattern], 'g'), pattern);
+    };
+
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
+        return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    }).replace(/\s+/g, '');
+};
+
+export const getInputValues = (inputContainerElementId: string): Object => {
+    const inputTextArea = document.getElementById(inputContainerElementId);
+    let inputValues = {}, inputChildrenLength = 0;
+
+    if(inputTextArea){
+        Object.values(inputTextArea.childNodes).map((children: ChildNode) => {
+            if(children.childNodes){
+                Object.values(children.childNodes).map((children: ChildNode) => {
+                    if(children.nodeName === 'INPUT'){
+                        const inputChildren = children as HTMLInputElement;
+
+                        if(!inputChildren.disabled){
+                            if(inputChildren.value){
+                                inputValues = {
+                                    ...inputValues,
+                                    [toCamelCase(inputChildren.name)]: inputChildren.value
+                                };
+                            };
+                            
+                            inputChildrenLength ++;
+                        };
+
+                        return -1;
+                    };
+
+                    return -1;
+                });
+            };
+
+            return -1;
+        });
+    };
+    
+    if(inputChildrenLength === Object.values(inputValues).length){
+        return inputValues;
+    }else{
+        return {};
+    }
+};
+export const isPalindrome = (num: number) => {
+    let factor = 1;
+
+    while (num / factor >= 10){
+        factor *= 10;
+    };
+
+    while(num) {
+        let first = Math.floor(num / factor);
+        let last = num % 10;
+
+        if(first !== last){
+            return false;
+        };
+
+        num = Math.floor((num % factor) / 10);
+
+        factor = factor / 100;
+    };
+
+    return true;
+};
+export const findPalindromeRange = (from: number, to: number) => {
+    const palindromeList: number[] =  [];
+
+    for(let i = from; i <= to; i++){
+        if(isPalindrome(i)){
+            palindromeList.push(i);
+        }
+    };
+
+    return palindromeList;
+};
+
+interface IBillList {
+    [key: string]: number
+};
+
+interface IBillDetais {
+    billList: IBillList,
+    totalBillCount: number
+};
+
+export const generateChange = (changeValue: number): IBillDetais => {
+    let changePossibleValues: number[] = [1, 10, 100];
+    changePossibleValues = changePossibleValues.sort((a, b) => b- a).reverse();
+
+    let changeList: IBillList = {},
+        totalBillCount: number = 0;
+
+    changePossibleValues.forEach(changePossibleValue => {
+        let isColission = false;
+
+        Object.keys(changeList).map(key => parseInt(key) === changePossibleValue);
+
+        if(!isColission){
+            changeList = {
+                ...changeList,
+                [changePossibleValue]: 0
+            };
+        };
+    });
+
+    for(let i = 1; i <= changeValue; i++){
+        for(let value = changePossibleValues.length - 1; value >= 0; value--){
+            const billValue = changePossibleValues[value];
+
+            while(i % billValue >= 0 && changeValue >= billValue){
+                changeList[billValue] ++;
+                totalBillCount ++;
+                changeValue = changeValue - billValue;
+            };
+        };
+    };
+
+    return{
+        billList: changeList,
+        totalBillCount: totalBillCount
+    };
+};
+
+export const testPossibleValues = (possibleValues: number[] | string[], target: number | string) => {
+    possibleValues.forEach(value => {
+        if(value === target){
+            return 1;
+        };
+    });
+
+    return 0;
 };

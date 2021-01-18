@@ -31,7 +31,7 @@ const findCep = (targetCepBlock: any, currentCepBlock: InsertCepObject): boolean
     return searchResult;
 };
 
-export const cepReducer = (state: any[] = [], action: Cep) => {
+export const cepReducer = (state: any[] = [], action: Cep): any[] => {
     switch(action.type){
         case 'REGISTER_CEP':
             const nextState = state;

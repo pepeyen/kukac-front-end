@@ -7,7 +7,8 @@ import {
     InputText,
     InputTextArea,
     InputSubmit,
-    InputSubmitArea
+    InputSubmitArea,
+    TextLister
 } from '../components';
 
 //Services
@@ -36,6 +37,7 @@ interface IShoppingDetails {
 const SecondQuestion: React.FC = () => {
     const [shoppingDetails, setShoppingDetails] = useState<IShoppingDetails>();
     const [questionFeedback, setQuestionFeedback] = useState('Por favor insira as informações da compra (＾◡＾)');
+    const currencyList = ['R$', '$', '¥', '€'];
 
     const submitButtonHandler = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>):void => {
         event.preventDefault();
@@ -102,17 +104,20 @@ const SecondQuestion: React.FC = () => {
                 </InputSubmitArea>
             </InputBlock>
             {shoppingDetails ? 
-                <div>
-                    <span>Valor da compra {shoppingDetails.shoppingPrice}</span>
-                    <div>
-                        <span>Valor do troco {shoppingDetails.change.changeValue}</span>
-                        <span>Valor minimo de notas {shoppingDetails.change.totalbillCount}</span>
-                        <ul>
+                <div className="page__answer --thin-borders --rounded-borders">
+                    <p className="page__answer-title">Valor da compra <span><TextLister textList={currencyList} textMaxScreenTime={2000}/> {shoppingDetails.shoppingPrice}</span></p>
+                    <div className="page__answer-results">
+                        <p className="page__answer-result">Valor do troco <span>{shoppingDetails.change.changeValue}</span></p>
+                        <p className="page__answer-result">Valor minimo de notas <span>{shoppingDetails.change.totalbillCount}</span></p>
+                        <ul className="page__answer-bills">
                             {
                                 shoppingDetails.change.billList.map((bill, index) => {
                                     return(
-                                        <li key={index}>
-                                            <p>Quantidade total de notas de {bill.billValue}: <span>{bill.billCount}</span></p>
+                                        <li
+                                            key={index ? index : 0}
+                                            className="page__answer-bill"
+                                        >
+                                            <p className="page__answer-result">Quantidade total de notas de {bill.billValue} <span>{bill.billCount}</span></p>
                                         </li>
                                     );
                                 })

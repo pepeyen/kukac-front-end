@@ -44,27 +44,33 @@ const CepResultArea: React.FC<IProps> = (props: IProps) => {
     
     if(props.cepResultList.length > 0){
         return(
-            <ul>
-                {props.cepResultList.map(cepResult => {
-                    return(
-                        <li key={cepResult.cepBlockId}>
-                            <span>
-                                {
-                                    Object.entries(cepResult.cepInfo).map(([index, value], key) => {
-                                        return(
-                                            <p key={key}>{index.toUpperCase()}: {value}</p>
-                                        );
-                                    })
-                                }
-                                <InputSubmit
-                                    onClick={(() => removeCepBlock(cepResult.cepBlockId))}
-                                    buttonText="Remover CEP"
-                                />
-                            </span>
-                        </li>
-                    );
-                })}
-            </ul>
+            <div>
+                <ul>
+                    {props.cepResultList.map(cepResult => {
+                        return(
+                            <li key={cepResult.cepBlockId}>
+                                <span>
+                                    {
+                                        Object.entries(cepResult.cepInfo).map(([index, value], key) => {
+                                            if(value !== ''){
+                                                return(
+                                                    <p key={key}>{index.toUpperCase()}: {value}</p>
+                                                );
+                                            }else{
+                                                return null;
+                                            }
+                                        })
+                                    }
+                                    <InputSubmit
+                                        onClick={(() => removeCepBlock(cepResult.cepBlockId))}
+                                        buttonText="Remover CEP"
+                                    />
+                                </span>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
         );
     }else{
         if(props.errorMessage !== ''){

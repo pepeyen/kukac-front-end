@@ -51,8 +51,6 @@ const App: React.FC = () => {
 					/>
 				</Switch>
 			</main>
-			<footer>
-			</footer>
 		</React.Fragment>
 	);
 }

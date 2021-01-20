@@ -21,7 +21,10 @@ import {
 } from '../components';
 
 //Services
-import { getInputValues } from '../services';
+import {
+    getInputValues,
+    generateDownload
+} from '../services';
 
 const ThirdQuestion: React.FC = () => {
     type VehicleType = string;
@@ -34,10 +37,21 @@ const ThirdQuestion: React.FC = () => {
         event.preventDefault();
         
         if(Object.values(getInputValues('inputTextArea')).length > 0){
-            setInputValues({
-                ...inputValues,
-                [vehicleType]: getInputValues('inputTextArea')
-            });
+            const nextInputValues = getInputValues('inputTextArea');
+            let nextInputValuesList;
+
+            if(inputValues[vehicleType]){
+                nextInputValuesList = {...inputValues};
+
+                nextInputValuesList[vehicleType].push(nextInputValues);
+            }else{
+                nextInputValuesList = {
+                    ...inputValues,
+                    [vehicleType]: [nextInputValues]
+                };
+            };
+
+            setInputValues(nextInputValuesList);
         };   
     };
 
@@ -47,16 +61,7 @@ const ThirdQuestion: React.FC = () => {
         const inputValuesList = inputValues;
         
         if(Object.values(inputValuesList).length > 0){
-            const downloadButton = document.createElement('a');
-        
-            downloadButton.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(inputValuesList)));
-            downloadButton.setAttribute('download', 'filename.json');
-
-            document.body.appendChild(downloadButton);
-
-            downloadButton.click();
-
-            document.body.removeChild(downloadButton);
+            generateDownload('controle-veiculos', 'json', JSON.stringify(inputValuesList, null, 4));
         };
     };
 

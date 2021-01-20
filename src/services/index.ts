@@ -108,7 +108,7 @@ export const renderNavbarHamburguer = (isMobile: boolean):void => {
         
                 Object.values(navbarGroup?.childNodes).map(children => navbarHamburguerGroup.appendChild(children));
                 
-                document.getElementsByTagName('header')[0].appendChild(navbarHamburguerGroup); 
+                document.getElementsByTagName('nav')[0].appendChild(navbarHamburguerGroup); 
             };
         }else{
             const navbarHamburguerButton = document.getElementById('navbarHamburguerButton');
@@ -337,4 +337,21 @@ export const renderAlertBox = (alertText: string):void => {
     setTimeout(() => fade(alertBoxElement), 1200);
 
     setTimeout(() => document.body.removeChild(alertBoxElement), 3000);
+};
+
+export const generateDownload = (fileName: string, fileExtension: string, fileContent: string): void => {
+    if(fileContent !== '' &&  fileName !== '' && fileExtension !== ''){
+        const mime = require('mime-types'),
+          downloadButton = document.createElement('a'),
+          fullFileName = `${fileName}.${fileExtension}`;
+    
+        downloadButton.setAttribute('href', `data:${mime.contentType(fullFileName)},` + encodeURIComponent(fileContent));
+        downloadButton.setAttribute('download', fullFileName);
+
+        document.body.appendChild(downloadButton);
+
+        downloadButton.click();
+
+        document.body.removeChild(downloadButton);
+    };
 };

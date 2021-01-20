@@ -1,9 +1,9 @@
 export const cepConverter = (cep: string): string => {
     if(cep !== '') {
-        const regex = /^([\d]{2})\.?([\d]{3})-?([\d]{3})/;
+        const regex = /^([\d]{5})-?([\d]{3})/;
 
         if(regex.test(cep)){
-            cep = cep.replace(regex,"$1.$2-$3");
+            cep = cep.replace(regex,"$1-$2");
         }else{
             cep = cep.replace(/[^0-9]/g,"");
         }

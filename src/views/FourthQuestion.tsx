@@ -57,7 +57,7 @@ const FourthQuestion: React.FC = () => {
             if(element.nodeName === 'INPUT'){   
                 let inputValue: string = (element as HTMLInputElement).value;
 				
-                if(inputValue.length === 10){
+                if(inputValue.length === 9){
 					fetchCep<ICepInfo>(inputValue.replace(/[^0-9]/g,""), 'json')
 					.then(data => {
 						if(data.erro){
@@ -65,9 +65,9 @@ const FourthQuestion: React.FC = () => {
 						}else{
 							dispatch(registerCep(data, cepCounter));
 							dispatch(increaseCepCounter());
-						}
-					})
-                }
+						};
+					});
+                };
             };
         });
     };

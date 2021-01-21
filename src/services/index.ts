@@ -275,7 +275,7 @@ export const testPossibleValues = (possibleValues: number[] | string[], target: 
 };
 
 export const fetchCep = <T>(cepValue: string, dataType: string): Promise<T> => {
-    return fetch(`https://viacep.com.br/ws/${cepValue}/${dataType}`, {
+    return fetch(`${process.env.REACT_APP_CEP_API_ADDRESS}/${cepValue}/${dataType}`, {
         method: 'GET'
     })
     .then(response => {

@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 2rem 0;
-    width: 100%;
+    width: 90%;
 
     &__text-area{
         display: flex;
@@ -55,6 +55,10 @@
         min-height: 3rem;
         font-size: 1rem;
 
+        &:disabled{
+            pointer-events: none;
+            background-color: #f0f0f0;
+        }
         &-area{
             display: flex;
             flex-direction: column;

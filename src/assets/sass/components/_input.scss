@@ -55,10 +55,6 @@
         min-height: 3rem;
         font-size: 1rem;
 
-        &:disabled{
-            pointer-events: none;
-            background-color: #f0f0f0;
-        }
         &-area{
             display: flex;
             flex-direction: column;

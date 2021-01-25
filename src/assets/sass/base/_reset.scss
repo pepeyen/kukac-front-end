@@ -47,3 +47,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+header {
+	z-index: 2;
+}
+main {
+	z-index: 1;
+}
+*:disabled{
+	pointer-events: none;
+	background-color: #f0efef !important;
+}

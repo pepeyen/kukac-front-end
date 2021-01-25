@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 //Components
 import {
+    Bubble,
+    BubbleList,
     Page,
     InputBlock,
     InputText,
@@ -13,7 +15,8 @@ import {
 //Services
 import {
     findPalindromeRange,
-    getInputValues
+    getInputValues,
+    renderAlertBox
 } from '../services';
 
 type Palindrome = number[];
@@ -35,6 +38,18 @@ const FirstQuestion: React.FC = () => {
         };
     };
 
+    const copyToClipboard = (event: React.MouseEvent<HTMLLIElement>): void =>{
+        const targetElement = (event.target as HTMLLIElement).childNodes[0];
+        const palindromeTextArea = targetElement as HTMLTextAreaElement;
+
+        palindromeTextArea.select();
+        palindromeTextArea.setSelectionRange(0, 99999);
+    
+        document.execCommand("copy");
+
+        renderAlertBox("Copiado <(￣︶￣)>");
+    };
+
     return(
         <Page title="Resolução">
             <InputBlock>
@@ -43,11 +58,13 @@ const FirstQuestion: React.FC = () => {
                         inputType="number"
                         labelText="De"
                         numMinValue={1}
+                        numMaxValue={9999998}
                     />
                     <InputText
                         inputType="number"
                         labelText="Para"
                         numMinValue={1}
+                        numMaxValue={9999999}
                     />
                 </InputTextArea>
                 <InputSubmitArea>
@@ -57,7 +74,19 @@ const FirstQuestion: React.FC = () => {
                     />
                 </InputSubmitArea>
             </InputBlock>
-            {palindromeList.map((palindrome, index) => <span key={index}>{palindrome}</span>)}
+            <BubbleList>
+            {
+                palindromeList.map((palindrome, index) => {
+                    return(
+                        <Bubble
+                            bubbleKey={index}
+                            bubbleValue={palindrome}
+                            onClick={copyToClipboard}
+                        />
+                    );
+                })
+            }
+            </BubbleList>
         </Page>
     );
 };

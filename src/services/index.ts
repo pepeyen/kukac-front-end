@@ -1,9 +1,9 @@
 export const cepConverter = (cep: string): string => {
     if(cep !== '') {
-        const regex = /^([\d]{2})\.?([\d]{3})-?([\d]{3})/;
+        const regex = /^([\d]{5})-?([\d]{3})/;
 
         if(regex.test(cep)){
-            cep = cep.replace(regex,"$1.$2-$3");
+            cep = cep.replace(regex,"$1-$2");
         }else{
             cep = cep.replace(/[^0-9]/g,"");
         }
@@ -108,7 +108,7 @@ export const renderNavbarHamburguer = (isMobile: boolean):void => {
         
                 Object.values(navbarGroup?.childNodes).map(children => navbarHamburguerGroup.appendChild(children));
                 
-                document.getElementsByTagName('header')[0].appendChild(navbarHamburguerGroup); 
+                document.getElementsByTagName('nav')[0].appendChild(navbarHamburguerGroup); 
             };
         }else{
             const navbarHamburguerButton = document.getElementById('navbarHamburguerButton');
@@ -275,7 +275,7 @@ export const testPossibleValues = (possibleValues: number[] | string[], target: 
 };
 
 export const fetchCep = <T>(cepValue: string, dataType: string): Promise<T> => {
-    return fetch(`https://viacep.com.br/ws/${cepValue}/${dataType}`, {
+    return fetch(`${process.env.REACT_APP_CEP_API_ADDRESS}/${cepValue}/${dataType}`, {
         method: 'GET'
     })
     .then(response => {
@@ -284,4 +284,74 @@ export const fetchCep = <T>(cepValue: string, dataType: string): Promise<T> => {
         }
         return response.json().then(data => data as T);
     }) ;
+};
+
+export const fade = (element: HTMLElement) => {
+    let opacity = 1;
+
+    const timer = setInterval(() => {
+        if(opacity <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        };
+
+        element.style.opacity = opacity.toString();
+        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+        opacity -= opacity * 0.1;
+    }, 50);
+};
+
+export const unfade = (element: HTMLElement) => {
+    let opacity = 0.1;
+
+    element.style.display = 'flex';
+
+    const timer = setInterval(() => {
+        if(opacity >= 1){
+            clearInterval(timer);
+        };
+
+        element.style.opacity = opacity.toString();
+        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+        opacity += opacity * 0.1;
+    }, 10);
+};
+
+export const renderAlertBox = (alertText: string):void => {
+    const alertBoxElement: HTMLDivElement = document.createElement('div');
+    const alertBoxTextElement: HTMLSpanElement = document.createElement('span');
+
+    alertBoxElement.id = "alertBox";
+    alertBoxElement.classList.add("alert-box");
+
+    alertBoxTextElement.textContent = alertText;
+    alertBoxTextElement.classList.add("alert-box__text");
+    alertBoxTextElement.classList.add("--rounded-borders");
+
+    alertBoxElement.appendChild(alertBoxTextElement);
+
+    document.body.appendChild(alertBoxElement);
+
+    unfade(alertBoxElement);
+
+    setTimeout(() => fade(alertBoxElement), 1200);
+
+    setTimeout(() => document.body.removeChild(alertBoxElement), 3000);
+};
+
+export const generateDownload = (fileName: string, fileExtension: string, fileContent: string): void => {
+    if(fileContent !== '' &&  fileName !== '' && fileExtension !== ''){
+        const mime = require('mime-types'),
+          downloadButton = document.createElement('a'),
+          fullFileName = `${fileName}.${fileExtension}`;
+    
+        downloadButton.setAttribute('href', `data:${mime.contentType(fullFileName)},` + encodeURIComponent(fileContent));
+        downloadButton.setAttribute('download', fullFileName);
+
+        document.body.appendChild(downloadButton);
+
+        downloadButton.click();
+
+        document.body.removeChild(downloadButton);
+    };
 };

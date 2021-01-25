@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 2rem 0;
+    width: 90%;
 
     &__text-area{
         display: flex;
@@ -23,11 +24,26 @@
         justify-content: space-between;
         align-items: center;
         
+        & label{
+            font-size: 1.2rem;
+        }
         & input{
+            font-family: 'WorkSans-Light';
             border: .1rem solid #403f3f;
             border-radius: .4rem;
             margin: 0 0 0 .6rem;
-            min-height: 1.3rem;
+            min-height: 2rem;
+            padding: 0 .6rem;
+
+            -webkit-transition: border-color .2s ease-in-out;
+            -moz-transition: border-color .2s ease-in-out;
+            -ms-transition: border-color.2s ease-in-out;
+            -o-transition: border-color .2s ease-in-out;
+            transition: border-color .2s ease-in-out;
+
+            &:focus{
+                border-color: #808080;
+            }
         }
     }
     &__submit{
@@ -37,6 +53,7 @@
         border: .1rem solid #403f3f;
         border-radius: .4rem;
         min-height: 3rem;
+        font-size: 1rem;
 
         &-area{
             display: flex;
@@ -49,13 +66,18 @@
 @media only screen and (min-width: 801px){
     .input-block{
         gap: 4vh 0;
+        width: 80%;
 
         &__text{
+            & label{
+                font-size: 2vh;
+            }
             & input{
-                border-radius: 1.3vh;
+                border-radius: .8vh;
                 min-height: 4vh;
                 margin: 0 0 0 2vh;
-                min-height: 2.3rem;
+                min-height: 2.4rem;
+                padding: 0 1vh;
             }
         }
         &__text-area{
@@ -68,8 +90,11 @@
         }
         &__submit{
             border: .1vh solid #403f3f;
-            border-radius: 1.3vh;
-            min-height: 4vh;
+            border-radius: .8vh;
+            min-width: 18vh;
+            min-height: 5.5vh;
+            font-size: 2vh;
+            
             -webkit-transition: background-color .2s ease-in-out;
             -moz-transition: background-color .2s ease-in-out;
             -ms-transition: background-color .2s ease-in-out;

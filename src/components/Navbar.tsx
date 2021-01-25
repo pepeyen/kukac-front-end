@@ -46,44 +46,46 @@ const Navbar: React.FC = () => {
     }
 
     return(
-        <nav
-            id="navbar"
-            className="navbar"
-        >
-            <NavbarLogo
-                redirectTo="/questoes"
-                logoType="text"
-                horizontalAlignment="right"
-                isActive={location.pathname === "/questoes"}
+        <nav>
+            <div
+                id="navbar"
+                className="navbar"
             >
-                Questões
-            </NavbarLogo>
-            <NavbarGroup horizontalAlignment="left">
-                <NavbarRedirector
-                    redirectTo="/questoes/primeira"
-                    isActive={location.pathname === "/questoes/primeira"}
+                <NavbarLogo
+                    redirectTo="/questoes"
+                    logoType="text"
+                    horizontalAlignment="right"
+                    isActive={location.pathname === "/questoes"}
                 >
-                    Primeira Questão
-                </NavbarRedirector>
-                <NavbarRedirector
-                    redirectTo="/questoes/segunda"
-                    isActive={location.pathname === "/questoes/segunda"}
-                >
-                    Segunda Questão
-                </NavbarRedirector>
-                <NavbarRedirector
-                    redirectTo="/questoes/terceira"
-                    isActive={location.pathname === "/questoes/terceira"}
-                >
-                    Terceira Questão
-                </NavbarRedirector>
-                <NavbarRedirector
-                    redirectTo="/questoes/quarta"
-                    isActive={location.pathname === "/questoes/quarta"}
-                >
-                    Quarta Questão
-                </NavbarRedirector>
-            </NavbarGroup>
+                    Questões
+                </NavbarLogo>
+                <NavbarGroup horizontalAlignment="left">
+                    <NavbarRedirector
+                        redirectTo="/questoes/primeira"
+                        isActive={location.pathname === "/questoes/primeira"}
+                    >
+                        Primeira Questão
+                    </NavbarRedirector>
+                    <NavbarRedirector
+                        redirectTo="/questoes/segunda"
+                        isActive={location.pathname === "/questoes/segunda"}
+                    >
+                        Segunda Questão
+                    </NavbarRedirector>
+                    <NavbarRedirector
+                        redirectTo="/questoes/terceira"
+                        isActive={location.pathname === "/questoes/terceira"}
+                    >
+                        Terceira Questão
+                    </NavbarRedirector>
+                    <NavbarRedirector
+                        redirectTo="/questoes/quarta"
+                        isActive={location.pathname === "/questoes/quarta"}
+                    >
+                        Quarta Questão
+                    </NavbarRedirector>
+                </NavbarGroup>
+            </div>
         </nav>
     );
 };
